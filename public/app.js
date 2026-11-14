@@ -31,7 +31,7 @@ let filters = {
   },
   scenario = 0;
 document.querySelector("#app").innerHTML =
-  `<section id="overview" class="hero"><div><div class="eyebrow">Finance workspace</div><h1>See the story behind the numbers.</h1><p>Revenue, costs and the decisions that shape your next quarter.</p></div><div class="actions"><button id="export" class="primary">↓ Export CSV</button></div></section><section class="toolbar" aria-label="Financial filters"><label>Financial year<select id="year"><option>2026</option><option>2025</option></select></label><label>Business division<select id="division"><option>All divisions</option><option>Cloud services</option><option>Consulting</option><option>Licensing</option></select></label><label>Period<select id="quarter"><option>All quarters</option><option value="1">Q1 · Jan–Mar</option><option value="2">Q2 · Apr–Jun</option><option value="3">Q3 · Jul–Sep</option><option value="4">Q4 · Oct–Dec</option></select></label><span class="muted">GBP · Synthetic monthly accounts</span></section><div id="results"></div>`;
+  `<section id="overview" class="hero"><div><div class="eyebrow">Finance workspace</div><h1>Your financial picture. <span>In focus.</span></h1><p>Revenue, costs and the decisions that shape your next quarter.</p></div><div class="actions"><button id="export" class="primary">↓ Export CSV</button></div></section><section class="toolbar" aria-label="Financial filters"><label>Financial year<select id="year"><option>2026</option><option>2025</option></select></label><label>Business division<select id="division"><option>All divisions</option><option>Cloud services</option><option>Consulting</option><option>Licensing</option></select></label><label>Period<select id="quarter"><option>All quarters</option><option value="1">Q1 · Jan–Mar</option><option value="2">Q2 · Apr–Jun</option><option value="3">Q3 · Jul–Sep</option><option value="4">Q4 · Oct–Dec</option></select></label><span class="muted">GBP · Synthetic monthly accounts</span></section><div id="results"></div>`;
 function render() {
   const rows = selectRecords(records, filters),
     t = totals(rows),
@@ -119,3 +119,15 @@ try {
   announce("The dashboard could not be calculated. Reload to try again.");
   console.error(error);
 }
+
+// Keep navigation state aligned with the section selected by mouse or keyboard.
+function updateNavigation() {
+  const active = location.hash || "#overview";
+  document.querySelectorAll("nav a").forEach((link) => {
+    if (link.getAttribute("href") === active)
+      link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+}
+window.addEventListener("hashchange", updateNavigation);
+updateNavigation();

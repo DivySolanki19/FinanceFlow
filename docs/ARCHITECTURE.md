@@ -45,3 +45,7 @@ Linear regression uses the selected months only and clamps negative predictions 
 ## Scaling path
 
 Introduce an authenticated API, schema migrations and transactional persistence before shared editing. Add optimistic concurrency, audit events, server-side validation, paginated queries, integration tests and observability. Keep the pure calculations separate and test them against accepted business examples before migrating the UI.
+
+## Visual identity
+
+A white navigation rail, navy editorial header, cobalt charts and a continuous KPI strip distinguish the financial workspace. The dedicated `public/theme.css` layer owns the product identity; `styles.css` retains shared responsive primitives. Native inputs, keyboard focus and text-based status labels remain available.
